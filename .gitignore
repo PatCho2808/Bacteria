@@ -1,4 +1,4 @@
-Skip to content
+﻿Skip to content
  
 Search or jump to…
 
@@ -367,3 +367,7 @@ Training
 Blog
 About
 Press h to open a hovercard with more details.
+
+# ignore stuff from SFML.Net
+
+Bacteria/*.dll
