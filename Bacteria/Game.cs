@@ -10,6 +10,9 @@ namespace Bacteria
 {
     class Game
     {
+        private string pathToPillTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Pill.png";
+        public Pill pill { get; set; }
+
         static void OnClose(object sender, EventArgs e)
         {
             RenderWindow window = (RenderWindow)sender;
@@ -20,17 +23,25 @@ namespace Bacteria
         {
             RenderWindow window = new RenderWindow(new VideoMode(x, y), "Bacteria", SFML.Window.Styles.Close);
             window.Closed += new EventHandler(OnClose);
+            pill = new Pill(pathToPillTexture);
+
             GameLoop(window);
         }
 
         public void GameLoop(RenderWindow window)
         {
-            while(window.IsOpen)
+            while (window.IsOpen)
             {
                 window.DispatchEvents();
                 window.Clear(new Color(34, 37, 47));
+                Draw(window); 
                 window.Display(); 
             }
+        }
+
+        private void Draw(RenderWindow window)
+        {
+            pill.Draw(window, RenderStates.Default);
         }
 
         
