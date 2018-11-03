@@ -8,6 +8,20 @@ namespace Bacteria
 {
     class Pill : Object
     {
-        public Pill(string path) : base(path) { }
+        public Pill(string path) : base(path)
+        {
+            posX = 475;
+            posY = 200;
+
+            SizeX = 3;
+            SizeY = 3;
+
+            rotation = 90;
+
+            SetSpriteRotation();
+            SetSpritePosition();
+            SetSpriteSize();
+            
+        }
     }
 }
