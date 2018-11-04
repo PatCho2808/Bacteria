@@ -11,7 +11,7 @@ namespace Bacteria
     class Game
     {
         private string pathToPillTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Pill.png";
-        public Pill pill { get; set; }
+        public Pill Pill { get; set; }
 
         static void OnClose(object sender, EventArgs e)
         {
@@ -23,7 +23,7 @@ namespace Bacteria
         {
             RenderWindow window = new RenderWindow(new VideoMode(x, y), "Bacteria", SFML.Window.Styles.Close);
             window.Closed += new EventHandler(OnClose);
-            pill = new Pill(pathToPillTexture);
+            Pill = new Pill(pathToPillTexture);
 
             GameLoop(window);
         }
@@ -33,6 +33,7 @@ namespace Bacteria
             while (window.IsOpen)
             {
                 window.DispatchEvents();
+                MovePill();
                 window.Clear(new Color(34, 37, 47));
                 Draw(window); 
                 window.Display(); 
@@ -41,7 +42,27 @@ namespace Bacteria
 
         private void Draw(RenderWindow window)
         {
-            pill.Draw(window, RenderStates.Default);
+            Pill.Draw(window, RenderStates.Default);
+        }
+
+        private void MovePill()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
+            {
+                Pill.MoveUp();
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
+            {
+                Pill.MoveDown();
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
+            {
+                Pill.MoveRight();
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
+            {
+                Pill.MoveLeft();
+            }
         }
 
         

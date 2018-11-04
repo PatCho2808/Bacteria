@@ -9,7 +9,6 @@ namespace Bacteria
 {
     class Object : Drawable 
     {
-        //protected string TexturePath;
         protected Texture Texture { get; set; }
         protected Sprite Sprite { get; set; }
         protected float SizeX, SizeY;
