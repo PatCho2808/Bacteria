@@ -11,9 +11,6 @@ namespace Bacteria
     {
         protected Texture Texture { get; set; }
         protected Sprite Sprite { get; set; }
-        protected float SizeX, SizeY;
-        protected float posX, posY;
-        protected float rotation; 
 
         public Object(string path)
         {

@@ -23,7 +23,7 @@ namespace Bacteria
         {
             RenderWindow window = new RenderWindow(new VideoMode(x, y), "Bacteria", SFML.Window.Styles.Close);
             window.Closed += new EventHandler(OnClose);
-            Pill = new Pill(pathToPillTexture);
+            Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(x,y));
 
             GameLoop(window);
         }
@@ -63,6 +63,8 @@ namespace Bacteria
             {
                 Pill.MoveLeft();
             }
+
+
         }
 
         
