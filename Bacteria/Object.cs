@@ -19,30 +19,13 @@ namespace Bacteria
         public Object(string path)
         {
             Texture = new Texture(path);
-            Sprite = new Sprite(Texture); 
+            Sprite = new Sprite(Texture);
+            Sprite.Origin = new SFML.System.Vector2f(Sprite.GetGlobalBounds().Width / 2, Sprite.GetGlobalBounds().Height / 2);
         }
 
         public void Draw(RenderTarget target,RenderStates states)
         {
             target.Draw(Sprite); 
-        }
-
-        public void SetSpriteSize()
-        {
-            Sprite.Scale = new SFML.System.Vector2f(SizeX, SizeY); 
-        }
-
-        public void SetSpritePosition()
-        {
-            float newPosX = posX - Sprite.GetGlobalBounds().Width;
-            float newPosY = posY - Sprite.GetGlobalBounds().Height;
-
-            Sprite.Position = new SFML.System.Vector2f(newPosX, newPosY); 
-        }
-
-        public void SetSpriteRotation()
-        {
-            Sprite.Rotation = rotation;
         }
 
     }
