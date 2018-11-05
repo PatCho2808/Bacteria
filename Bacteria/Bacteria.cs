@@ -11,7 +11,6 @@ namespace Bacteria
         public Bacteria(string path) : base (path)
         {
             Sprite.Position = new SFML.System.Vector2f(50, 50);
-            //Sprite.Scale = new SFML.System.Vector2f(2, 2);
         }
     }
 }

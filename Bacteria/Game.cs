@@ -12,8 +12,9 @@ namespace Bacteria
     {
         private string pathToPillTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Pill.png";
         private string pathToBacteriaTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Bacteria.png";
-        public Pill Pill { get; set; }
-        public Bacteria Bacteria { get; set; }
+        private Pill Pill { get; set; }
+        private List<Bacteria> ListOfBacteria = new List<Bacteria>();
+        private int numberOfBacteria = 10; 
 
         static void OnClose(object sender, EventArgs e)
         {
@@ -26,7 +27,7 @@ namespace Bacteria
             RenderWindow window = new RenderWindow(new VideoMode(x, y), "Bacteria", SFML.Window.Styles.Close);
             window.Closed += new EventHandler(OnClose);
             Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(x,y));
-            Bacteria = new Bacteria(pathToBacteriaTexture);
+            CreateBacterias(); 
 
             GameLoop(window);
         }
@@ -46,7 +47,7 @@ namespace Bacteria
         private void Draw(RenderWindow window)
         {
             Pill.Draw(window, RenderStates.Default);
-            Bacteria.Draw(window, RenderStates.Default);
+            ListOfBacteria.ForEach(el=>el.Draw(window, RenderStates.Default));
         }
 
         private void MovePill()
@@ -67,8 +68,14 @@ namespace Bacteria
             {
                 Pill.MoveLeft();
             }
+        }
 
-
+        private void CreateBacterias()
+        {
+            for(int i=0; i<numberOfBacteria; i++)
+            {
+                ListOfBacteria.Add(new Bacteria(pathToBacteriaTexture)); 
+            }
         }
 
         
