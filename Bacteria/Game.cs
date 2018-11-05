@@ -47,11 +47,7 @@ namespace Bacteria
         private void Draw(RenderWindow window)
         {
             Pill.Draw(window, RenderStates.Default);
-            //ListOfBacteria.ForEach(el=>el.Draw(window, RenderStates.Default));
-            for (int i = 0; i < numberOfBacteria; i++)
-            {
-                ListOfBacteria[i].Draw(window, RenderStates.Default);
-            }
+            ListOfBacteria.ForEach(el=>el.Draw(window, RenderStates.Default));
         }
 
         private void MovePill()
