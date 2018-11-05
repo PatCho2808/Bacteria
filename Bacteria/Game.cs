@@ -11,7 +11,9 @@ namespace Bacteria
     class Game
     {
         private string pathToPillTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Pill.png";
+        private string pathToBacteriaTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Bacteria.png";
         public Pill Pill { get; set; }
+        public Bacteria Bacteria { get; set; }
 
         static void OnClose(object sender, EventArgs e)
         {
@@ -24,6 +26,7 @@ namespace Bacteria
             RenderWindow window = new RenderWindow(new VideoMode(x, y), "Bacteria", SFML.Window.Styles.Close);
             window.Closed += new EventHandler(OnClose);
             Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(x,y));
+            Bacteria = new Bacteria(pathToBacteriaTexture);
 
             GameLoop(window);
         }
@@ -43,6 +46,7 @@ namespace Bacteria
         private void Draw(RenderWindow window)
         {
             Pill.Draw(window, RenderStates.Default);
+            Bacteria.Draw(window, RenderStates.Default);
         }
 
         private void MovePill()
