@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Window;
 
 namespace Bacteria 
 {
@@ -21,29 +22,54 @@ namespace Bacteria
             this.WindowSize = WindowSize; 
         }
 
-        public void MoveRight()
+        private void MoveRight()
         {
             if(Sprite.Position.X < WindowSize.X - Sprite.GetGlobalBounds().Width/2)
                 Sprite.Position = new SFML.System.Vector2f(Sprite.Position.X + speed, Sprite.Position.Y);
         }
 
-        public void MoveLeft()
+        private void MoveLeft()
         {
             if (Sprite.Position.X > Sprite.GetGlobalBounds().Width / 2)
                 Sprite.Position = new SFML.System.Vector2f(Sprite.Position.X - speed, Sprite.Position.Y);
 
         }
 
-        public void MoveUp()
+        private void MoveUp()
         {
             if (Sprite.Position.Y > Sprite.GetGlobalBounds().Height / 2)
                 Sprite.Position = new SFML.System.Vector2f(Sprite.Position.X, Sprite.Position.Y - speed);
         }
 
-        public void MoveDown()
+        private void MoveDown()
         {
             if (Sprite.Position.Y < WindowSize.Y - Sprite.GetGlobalBounds().Height / 2)
                 Sprite.Position = new SFML.System.Vector2f(Sprite.Position.X, Sprite.Position.Y + speed);
+        }
+
+        public void Update()
+        {
+            Move(); 
+        }
+
+        private void Move()
+        {
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
+            {
+                MoveUp();
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
+            {
+                MoveDown();
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
+            {
+                MoveRight();
+            }
+            else if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
+            {
+                MoveLeft();
+            }
         }
 
     }

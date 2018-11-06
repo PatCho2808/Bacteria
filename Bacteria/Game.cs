@@ -37,37 +37,22 @@ namespace Bacteria
             while (window.IsOpen)
             {
                 window.DispatchEvents();
-                MovePill();
                 window.Clear(new Color(34, 37, 47));
-                Draw(window); 
+                Update(window);
                 window.Display(); 
             }
+        }
+
+        private void Update(RenderWindow window)
+        {
+            Pill.Update();
+            Draw(window);
         }
 
         private void Draw(RenderWindow window)
         {
             Pill.Draw(window, RenderStates.Default);
             ListOfBacteria.ForEach(el=>el.Draw(window, RenderStates.Default));
-        }
-
-        private void MovePill()
-        {
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Up))
-            {
-                Pill.MoveUp();
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.Down))
-            {
-                Pill.MoveDown();
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.Right))
-            {
-                Pill.MoveRight();
-            }
-            else if (Keyboard.IsKeyPressed(Keyboard.Key.Left))
-            {
-                Pill.MoveLeft();
-            }
         }
 
         private void CreateBacterias(int maxX, int maxY)
@@ -77,6 +62,8 @@ namespace Bacteria
                 ListOfBacteria.Add(new Bacteria(pathToBacteriaTexture,maxX,maxY)); 
             }
         }
+
+        
 
         
     }
