@@ -47,6 +47,7 @@ namespace Bacteria
         {
             Pill.Update();
             Draw(window);
+            CheckIfPillCollectedBacteria();
         }
 
         private void Draw(RenderWindow window)
@@ -60,6 +61,18 @@ namespace Bacteria
             for(int i=0; i<numberOfBacteria; i++)
             {
                 ListOfBacteria.Add(new Bacteria(pathToBacteriaTexture,maxX,maxY)); 
+            }
+        }
+
+        private void CheckIfPillCollectedBacteria()
+        {
+            for (int i = 0; i < numberOfBacteria; i++)
+            {
+              if(ListOfBacteria[i].GetBoundingBox().Intersects(Pill.GetBoundingBox()))
+                {
+                    ListOfBacteria.RemoveAt(i);
+                    numberOfBacteria--; 
+                }
             }
         }
 

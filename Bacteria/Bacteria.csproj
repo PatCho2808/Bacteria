@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5D503687-1416-4DA4-89E7-520B9E5B2AAC}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Bacteria</RootNamespace>
     <AssemblyName>Bacteria</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>

@@ -24,5 +24,10 @@ namespace Bacteria
             target.Draw(Sprite); 
         }
 
+        public FloatRect GetBoundingBox()
+        {
+            return Sprite.GetGlobalBounds(); 
+        }
+
     }
 }

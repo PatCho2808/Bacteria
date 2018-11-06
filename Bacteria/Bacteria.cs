@@ -21,5 +21,6 @@ namespace Bacteria
             int y = Rand.Next((int)(Sprite.GetGlobalBounds().Height/2),(int)(maxY - Sprite.GetGlobalBounds().Height / 2));
             Sprite.Position = new SFML.System.Vector2f(x, y);
         }
+
     }
 }
