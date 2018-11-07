@@ -15,13 +15,15 @@ namespace Bacteria
         private Font Font;
         private Text Text = new Text();
         private int levelDuration = 10;
-        private Clock Clock = new Clock(); 
+        private Clock Clock = new Clock();
+        private float windowWidth; 
      
-        public Timer(Font newFont)
+        public Timer(Font newFont, SFML.System.Vector2f WindowSize)
         {
             Font = newFont;
             Text.Font = Font;
-            Text.Position = new Vector2f(100, 100);
+            windowWidth = WindowSize.X;
+            Text.Scale = new Vector2f(1.5f, 1.5f);
             SetNewTimer(); 
         }
 
@@ -33,7 +35,10 @@ namespace Bacteria
         public void Update()
         {
             if(Text.DisplayedString != "0")
-                Text.DisplayedString = (levelDuration - (int)Clock.ElapsedTime.AsSeconds()).ToString(); 
+            {
+                Text.DisplayedString = (levelDuration - (int)Clock.ElapsedTime.AsSeconds()).ToString();
+                Text.Position = new Vector2f(windowWidth - Text.GetGlobalBounds().Width * 2, Text.GetGlobalBounds().Height);
+            }            
         }
 
         public void Draw(RenderTarget target, RenderStates states)

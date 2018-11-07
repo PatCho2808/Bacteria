@@ -13,7 +13,7 @@ namespace Bacteria
         private float speed = 0.1f;
         private SFML.System.Vector2f WindowSize; 
 
-        public Pill(string path, SFML.System.Vector2f WindowSize ) : base(path)
+        public Pill(string path, SFML.System.Vector2f WindowSize) : base(path)
         {
             Sprite.Position = new SFML.System.Vector2f(WindowSize.X/2, WindowSize.Y/2);
             Sprite.Scale = new SFML.System.Vector2f(2, 2);

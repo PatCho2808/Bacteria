@@ -32,7 +32,7 @@ namespace Bacteria
             Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(x,y));
             CreateBacterias((int)x,(int)y);
             Font = new Font(pathToFont);
-            Timer = new Timer(Font); 
+            Timer = new Timer(Font, new SFML.System.Vector2f(x, y)); 
 
             GameLoop(window);
         }
