@@ -12,9 +12,12 @@ namespace Bacteria
     {
         private string pathToPillTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Pill.png";
         private string pathToBacteriaTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Bacteria.png";
+        private string pathToFont = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\PressStart2P-Regular.ttf";
+        private Font Font; 
         private Pill Pill { get; set; }
         private List<Bacteria> ListOfBacteria = new List<Bacteria>();
         private int numberOfBacteria = 20; 
+        private Timer Timer; 
 
         static void OnClose(object sender, EventArgs e)
         {
@@ -27,7 +30,9 @@ namespace Bacteria
             RenderWindow window = new RenderWindow(new VideoMode(x, y), "Bacteria", SFML.Window.Styles.Close);
             window.Closed += new EventHandler(OnClose);
             Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(x,y));
-            CreateBacterias((int)x,(int)y); 
+            CreateBacterias((int)x,(int)y);
+            Font = new Font(pathToFont);
+            Timer = new Timer(Font); 
 
             GameLoop(window);
         }
@@ -48,12 +53,14 @@ namespace Bacteria
             Pill.Update();
             Draw(window);
             CheckIfPillCollectedBacteria();
+            Timer.Update(); 
         }
 
         private void Draw(RenderWindow window)
         {
             Pill.Draw(window, RenderStates.Default);
             ListOfBacteria.ForEach(el=>el.Draw(window, RenderStates.Default));
+            Timer.Draw(window, RenderStates.Default);
         }
 
         private void CreateBacterias(int maxX, int maxY)
