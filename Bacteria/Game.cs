@@ -17,13 +17,12 @@ namespace Bacteria
         private Pill Pill { get; set; }
         private List<Bacteria> ListOfBacteria = new List<Bacteria>();
         private int numberOfBacteria = 20; 
-        private Timer Timer; 
-
-        static void OnClose(object sender, EventArgs e)
+        private Timer Timer;
+        enum GameState
         {
-            RenderWindow window = (RenderWindow)sender;
-            window.Close();
+            Menu, Running, Win, Lose
         }
+        private GameState State;
 
         public Game(uint x, uint y)
         {
@@ -32,14 +31,15 @@ namespace Bacteria
             Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(x,y));
             CreateBacterias((int)x,(int)y);
             Font = new Font(pathToFont);
-            Timer = new Timer(Font, new SFML.System.Vector2f(x, y)); 
+            Timer = new Timer(Font, new SFML.System.Vector2f(x, y));
+            State = GameState.Running; 
 
             GameLoop(window);
         }
 
         public void GameLoop(RenderWindow window)
         {
-            while (window.IsOpen)
+            while (State == GameState.Running)
             {
                 window.DispatchEvents();
                 window.Clear(new Color(34, 37, 47));
@@ -48,12 +48,19 @@ namespace Bacteria
             }
         }
 
+        static void OnClose(object sender, EventArgs e)
+        {
+            RenderWindow window = (RenderWindow)sender;
+            window.Close();
+        }
+
         private void Update(RenderWindow window)
         {
             Pill.Update();
             Draw(window);
             CheckIfPillCollectedBacteria();
-            Timer.Update(); 
+            Timer.Update();
+            UpdateState(); 
         }
 
         private void Draw(RenderWindow window)
@@ -84,7 +91,29 @@ namespace Bacteria
         }
 
         
+        private void UpdateState()
+        {
+            CheckLoseConditions();
+            CheckWinConditions();                
+        }
 
+        private void CheckWinConditions()
+        {
+            if (numberOfBacteria <= 0)
+            {
+                Console.WriteLine("u win ");
+                State = GameState.Win;
+            }
+        }
+
+        private void CheckLoseConditions()
+        {
+            if(Timer.GetRemainingTime() <= 0 && numberOfBacteria > 0)
+            {
+                Console.WriteLine("u lost ");
+                State = GameState.Lose;
+            }
+        }
         
     }
 }

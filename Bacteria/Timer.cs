@@ -14,7 +14,7 @@ namespace Bacteria
     {
         private Font Font;
         private Text Text = new Text();
-        private int levelDuration = 10;
+        private int levelDuration = 20;
         private Clock Clock = new Clock();
         private float windowWidth; 
      
@@ -44,6 +44,11 @@ namespace Bacteria
         public void Draw(RenderTarget target, RenderStates states)
         {
             target.Draw(Text); 
+        }
+
+        public float GetRemainingTime()
+        {
+            return 10 - Clock.ElapsedTime.AsSeconds(); 
         }
 
     }
