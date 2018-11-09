@@ -23,6 +23,8 @@ namespace Bacteria
             Menu, Running, Win, Lose
         }
         private GameState State;
+        private List<string> ListOfEndingTexts = new List<string>();
+        private Text EndingText = new Text(); 
 
         public Game(uint x, uint y)
         {
@@ -32,7 +34,9 @@ namespace Bacteria
             CreateBacterias((int)x,(int)y);
             Font = new Font(pathToFont);
             Timer = new Timer(Font, new SFML.System.Vector2f(x, y));
-            State = GameState.Running; 
+            State = GameState.Running;
+            ListOfEndingTexts.Add("Congratulations! You won! \n Press Enter to continue");
+            ListOfEndingTexts.Add("You lose! Bacteria started mutating! \n Press Enter to continue");
 
             GameLoop(window);
         }
@@ -45,6 +49,17 @@ namespace Bacteria
                 window.Clear(new Color(34, 37, 47));
                 Update(window);
                 window.Display(); 
+            }
+
+            SetEndingText(window.Size.X,window.Size.Y); 
+
+            while(State == GameState.Win || State == GameState.Lose)
+            {
+                window.DispatchEvents();
+                window.Clear(new Color(34, 37, 47));
+                Console.WriteLine("win or lose"); 
+                window.Draw(EndingText); 
+                window.Display();
             }
         }
 
@@ -101,8 +116,8 @@ namespace Bacteria
         {
             if (numberOfBacteria <= 0)
             {
-                Console.WriteLine("u win ");
                 State = GameState.Win;
+                EndingText.DisplayedString = ListOfEndingTexts[0]; 
             }
         }
 
@@ -110,9 +125,19 @@ namespace Bacteria
         {
             if(Timer.GetRemainingTime() <= 0 && numberOfBacteria > 0)
             {
-                Console.WriteLine("u lost ");
                 State = GameState.Lose;
+                EndingText.DisplayedString = ListOfEndingTexts[1];
             }
+        }
+
+        private void SetEndingText(uint x, uint y)
+        {
+            EndingText.Font = Font; 
+            EndingText.Origin = new SFML.System.Vector2f(EndingText.GetGlobalBounds().Width / 2, EndingText.GetGlobalBounds().Height/ 2);
+            EndingText.Position = new SFML.System.Vector2f(x / 2, y / 2);
+            EndingText.Scale = new SFML.System.Vector2f(.5f, .5f);
+            EndingText.Style = Text.Styles.Bold; 
+
         }
         
     }

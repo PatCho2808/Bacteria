@@ -14,7 +14,7 @@ namespace Bacteria
     {
         private Font Font;
         private Text Text = new Text();
-        private int levelDuration = 20;
+        private int levelDuration = 1;
         private Clock Clock = new Clock();
         private float windowWidth; 
      
