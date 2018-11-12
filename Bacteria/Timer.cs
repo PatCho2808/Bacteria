@@ -48,7 +48,7 @@ namespace Bacteria
 
         public float GetRemainingTime()
         {
-            return 10 - Clock.ElapsedTime.AsSeconds(); 
+            return levelDuration - Clock.ElapsedTime.AsSeconds(); 
         }
 
     }
