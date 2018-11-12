@@ -10,18 +10,14 @@ namespace Bacteria
 {
     
 
-    class Timer : Drawable
+    class Timer : TextObject
     {
-        private Font Font;
-        private Text Text = new Text();
         private int levelDuration = 1;
         private Clock Clock = new Clock();
         private float windowWidth; 
      
-        public Timer(Font newFont, SFML.System.Vector2f WindowSize)
+        public Timer(Font newFont, SFML.System.Vector2f WindowSize) :base(newFont, WindowSize)
         {
-            Font = newFont;
-            Text.Font = Font;
             windowWidth = WindowSize.X;
             Text.Scale = new Vector2f(1.5f, 1.5f);
             SetNewTimer(); 
@@ -39,11 +35,6 @@ namespace Bacteria
                 Text.DisplayedString = (levelDuration - (int)Clock.ElapsedTime.AsSeconds()).ToString();
                 Text.Position = new Vector2f(windowWidth - Text.GetGlobalBounds().Width * 2, Text.GetGlobalBounds().Height);
             }            
-        }
-
-        public void Draw(RenderTarget target, RenderStates states)
-        {
-            target.Draw(Text); 
         }
 
         public float GetRemainingTime()
