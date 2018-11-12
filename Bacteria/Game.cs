@@ -16,7 +16,9 @@ namespace Bacteria
         private Font Font; 
         private Pill Pill { get; set; }
         private List<Bacteria> ListOfBacteria = new List<Bacteria>();
-        private int numberOfBacteria = 20; 
+        private int initialNumberOfBacteria = 20;
+        private int currentNumberOfBactiera; 
+
         private Timer Timer;
         enum GameState
         {
@@ -30,15 +32,10 @@ namespace Bacteria
         {
             RenderWindow window = new RenderWindow(new VideoMode(x, y), "Bacteria", SFML.Window.Styles.Close);
             window.Closed += new EventHandler(OnClose);
-            Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(x,y));
-            CreateBacterias((int)x,(int)y);
-            Font = new Font(pathToFont);
-            Timer = new Timer(Font, new SFML.System.Vector2f(x, y));
-            State = GameState.Running;
-            ListOfEndingTexts.Add("Congratulations! You won! \n Press Enter to continue");
-            ListOfEndingTexts.Add("You lose! Bacteria started mutating! \n Press Enter to continue");
+            ListOfEndingTexts.Add("Congratulations! You won! \n \t Press Enter to continue");
+            ListOfEndingTexts.Add("You lost! Bacteria started mutating! \n \t Press Enter to continue");
 
-            GameLoop(window);
+            InitializeGame(window);
         }
 
         public void GameLoop(RenderWindow window)
@@ -57,7 +54,12 @@ namespace Bacteria
             {
                 window.DispatchEvents();
                 window.Clear(new Color(34, 37, 47));
-                Console.WriteLine("win or lose"); 
+
+                if(Keyboard.IsKeyPressed(Keyboard.Key.Return))
+                {
+                    InitializeGame(window); 
+                }
+
                 window.Draw(EndingText); 
                 window.Display();
             }
@@ -85,22 +87,22 @@ namespace Bacteria
             Timer.Draw(window, RenderStates.Default);
         }
 
-        private void CreateBacterias(int maxX, int maxY)
+        private void CreateBacterias(uint maxX, uint maxY)
         {
-            for(int i=0; i<numberOfBacteria; i++)
+            for(int i=0; i< initialNumberOfBacteria; i++)
             {
-                ListOfBacteria.Add(new Bacteria(pathToBacteriaTexture,maxX,maxY)); 
+                ListOfBacteria.Add(new Bacteria(pathToBacteriaTexture,(int)maxX,(int)maxY)); 
             }
         }
 
         private void CheckIfPillCollectedBacteria()
         {
-            for (int i = 0; i < numberOfBacteria; i++)
+            for (int i = 0; i < currentNumberOfBactiera; i++)
             {
               if(ListOfBacteria[i].GetBoundingBox().Intersects(Pill.GetBoundingBox()))
                 {
                     ListOfBacteria.RemoveAt(i);
-                    numberOfBacteria--; 
+                    currentNumberOfBactiera--; 
                 }
             }
         }
@@ -114,7 +116,7 @@ namespace Bacteria
 
         private void CheckWinConditions()
         {
-            if (numberOfBacteria <= 0)
+            if (currentNumberOfBactiera <= 0)
             {
                 State = GameState.Win;
                 EndingText.DisplayedString = ListOfEndingTexts[0]; 
@@ -123,7 +125,7 @@ namespace Bacteria
 
         private void CheckLoseConditions()
         {
-            if(Timer.GetRemainingTime() <= 0 && numberOfBacteria > 0)
+            if(Timer.GetRemainingTime() <= 0 && currentNumberOfBactiera > 0)
             {
                 State = GameState.Lose;
                 EndingText.DisplayedString = ListOfEndingTexts[1];
@@ -138,6 +140,17 @@ namespace Bacteria
             EndingText.Scale = new SFML.System.Vector2f(.5f, .5f);
             EndingText.Style = Text.Styles.Bold; 
 
+        }
+
+        private void InitializeGame(RenderWindow window)
+        {
+            Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
+            CreateBacterias(window.Size.X, window.Size.Y);
+            currentNumberOfBactiera = initialNumberOfBacteria; 
+            Font = new Font(pathToFont);
+            Timer = new Timer(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
+            State = GameState.Running;
+            GameLoop(window);
         }
         
     }
