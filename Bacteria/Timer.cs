@@ -12,7 +12,7 @@ namespace Bacteria
 
     class Timer : TextObject
     {
-        private int levelDuration = 1;
+        private int levelDuration = 10;
         private Clock Clock = new Clock();
      
         public Timer(Font newFont, SFML.System.Vector2f WindowSize) :base(newFont, WindowSize)

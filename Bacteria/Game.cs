@@ -46,7 +46,9 @@ namespace Bacteria
                 window.Display(); 
             }
 
-            while(State == GameState.Win || State == GameState.Lose)
+            ClearAfterGame();
+
+            while (State == GameState.Win || State == GameState.Lose)
             {
                 window.DispatchEvents();
                 window.Clear(new Color(34, 37, 47));
@@ -140,5 +142,10 @@ namespace Bacteria
             GameLoop(window);
         }
         
+        private void ClearAfterGame()
+        {
+            ListOfBacteria.Clear();
+            currentNumberOfBactiera = 0; 
+        }
     }
 }
