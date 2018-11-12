@@ -17,21 +17,20 @@ namespace Bacteria
         {
             ListOfEndingTexts.Add("Congratulations! You won! \n \t Press Enter to continue");
             ListOfEndingTexts.Add("You lost! Bacteria started mutating! \n \t Press Enter to continue");
-            SetText(); 
-        }
-
-        public void SetText()
-        {
-            Text.Font = Font;
-            Text.Origin = new SFML.System.Vector2f(Text.GetGlobalBounds().Width / 2, Text.GetGlobalBounds().Height / 2);
-            Text.Position = new SFML.System.Vector2f(windowWidth / 2, windowHeight/ 2);
             Text.Scale = new SFML.System.Vector2f(.5f, .5f);
             Text.Style = Text.Styles.Bold;
+        }
+
+        public void SetPosition()
+        {
+            Text.Origin = new SFML.System.Vector2f(Text.GetGlobalBounds().Width / 2, Text.GetGlobalBounds().Height / 2);
+            Text.Position = new SFML.System.Vector2f(windowWidth / 2 - 100, windowHeight / 2);
         }
 
         public void SetString(bool win)
         {
             Text.DisplayedString =  win ? ListOfEndingTexts[0] : ListOfEndingTexts[1];
+            SetPosition();
         }
     }
 }

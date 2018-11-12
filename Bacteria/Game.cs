@@ -25,15 +25,13 @@ namespace Bacteria
             Menu, Running, Win, Lose
         }
         private GameState State;
-        private List<string> ListOfEndingTexts = new List<string>();
-        private Text EndingText = new Text(); 
+        private EndindText EndingText;
 
         public Game(uint x, uint y)
         {
             RenderWindow window = new RenderWindow(new VideoMode(x, y), "Bacteria", SFML.Window.Styles.Close);
             window.Closed += new EventHandler(OnClose);
-            ListOfEndingTexts.Add("Congratulations! You won! \n \t Press Enter to continue");
-            ListOfEndingTexts.Add("You lost! Bacteria started mutating! \n \t Press Enter to continue");
+            
 
             InitializeGame(window);
         }
@@ -48,8 +46,6 @@ namespace Bacteria
                 window.Display(); 
             }
 
-            SetEndingText(window.Size.X,window.Size.Y); 
-
             while(State == GameState.Win || State == GameState.Lose)
             {
                 window.DispatchEvents();
@@ -60,7 +56,7 @@ namespace Bacteria
                     InitializeGame(window); 
                 }
 
-                window.Draw(EndingText); 
+                EndingText.Draw(window, RenderStates.Default);
                 window.Display();
             }
         }
@@ -119,7 +115,7 @@ namespace Bacteria
             if (currentNumberOfBactiera <= 0)
             {
                 State = GameState.Win;
-                EndingText.DisplayedString = ListOfEndingTexts[0]; 
+                EndingText.SetString(true); 
             }
         }
 
@@ -128,18 +124,8 @@ namespace Bacteria
             if(Timer.GetRemainingTime() <= 0 && currentNumberOfBactiera > 0)
             {
                 State = GameState.Lose;
-                EndingText.DisplayedString = ListOfEndingTexts[1];
+                EndingText.SetString(false);
             }
-        }
-
-        private void SetEndingText(uint x, uint y)
-        {
-            EndingText.Font = Font; 
-            EndingText.Origin = new SFML.System.Vector2f(EndingText.GetGlobalBounds().Width / 2, EndingText.GetGlobalBounds().Height/ 2);
-            EndingText.Position = new SFML.System.Vector2f(x / 2, y / 2);
-            EndingText.Scale = new SFML.System.Vector2f(.5f, .5f);
-            EndingText.Style = Text.Styles.Bold; 
-
         }
 
         private void InitializeGame(RenderWindow window)
@@ -149,6 +135,7 @@ namespace Bacteria
             currentNumberOfBactiera = initialNumberOfBacteria; 
             Font = new Font(pathToFont);
             Timer = new Timer(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
+            EndingText = new EndindText(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
             State = GameState.Running;
             GameLoop(window);
         }
