@@ -16,7 +16,6 @@ namespace Bacteria
         public Pill(string path, SFML.System.Vector2f WindowSize) : base(path)
         {
             Sprite.Position = new SFML.System.Vector2f(WindowSize.X/2, WindowSize.Y/2);
-            Sprite.Scale = new SFML.System.Vector2f(2, 2);
             Sprite.Rotation = 90;
 
             this.WindowSize = WindowSize; 
