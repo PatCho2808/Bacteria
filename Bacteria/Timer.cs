@@ -14,11 +14,10 @@ namespace Bacteria
     {
         private int levelDuration = 1;
         private Clock Clock = new Clock();
-        private float windowWidth; 
      
         public Timer(Font newFont, SFML.System.Vector2f WindowSize) :base(newFont, WindowSize)
         {
-            windowWidth = WindowSize.X;
+            
             Text.Scale = new Vector2f(1.5f, 1.5f);
             SetNewTimer(); 
         }

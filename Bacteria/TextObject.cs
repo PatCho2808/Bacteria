@@ -11,11 +11,15 @@ namespace Bacteria
     {
         protected Font Font;
         protected Text Text = new Text();
+        protected float windowWidth;
+        protected float windowHeight;
 
         public TextObject(Font newFont, SFML.System.Vector2f WindowSize)
         {
             Font = newFont;
-            Text.Font = Font; 
+            Text.Font = Font;
+            windowHeight = WindowSize.Y;
+            windowWidth = WindowSize.X;
         }
 
         public void Draw(RenderTarget target, RenderStates states)
