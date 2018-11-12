@@ -100,7 +100,6 @@
   <ItemGroup>
     <Compile Include="Bacteria.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameFlowManager.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="Pill.cs" />
     <Compile Include="Program.cs" />

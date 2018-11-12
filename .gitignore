@@ -370,4 +370,4 @@ Press h to open a hovercard with more details.
 
 # ignore stuff from SFML.Net
 
-Bacteria/*.dll
+#Bacteria/*.dll
