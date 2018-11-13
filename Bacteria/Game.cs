@@ -17,7 +17,8 @@ namespace Bacteria
         private Pill Pill { get; set; }
         private List<Bacteria> ListOfBacteria = new List<Bacteria>();
         private int initialNumberOfBacteria = 20;
-        private int currentNumberOfBactiera; 
+        private int currentNumberOfBactiera;
+        private Menu Menu; 
 
         private Timer Timer;
         enum GameState
@@ -31,13 +32,22 @@ namespace Bacteria
         {
             RenderWindow window = new RenderWindow(new VideoMode(x, y), "Bacteria", SFML.Window.Styles.Close);
             window.Closed += new EventHandler(OnClose);
-            
+            Font = new Font(pathToFont);
+            Menu = new Menu(Font, new SFML.System.Vector2f(x,y)); 
 
             InitializeGame(window);
         }
 
         public void GameLoop(RenderWindow window)
         {
+            while(State == GameState.Menu)
+            {
+                window.DispatchEvents();
+                window.Clear(new Color(34, 37, 47));
+                window.Draw(Menu); 
+                window.Display();
+            }
+
             while (State == GameState.Running)
             {
                 window.DispatchEvents();
@@ -135,10 +145,10 @@ namespace Bacteria
             Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
             CreateBacterias(window.Size.X, window.Size.Y);
             currentNumberOfBactiera = initialNumberOfBacteria; 
-            Font = new Font(pathToFont);
+            
             Timer = new Timer(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
             EndingText = new EndindText(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
-            State = GameState.Running;
+            State = GameState.Menu;
             GameLoop(window);
         }
         

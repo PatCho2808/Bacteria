@@ -101,6 +101,7 @@
     <Compile Include="Bacteria.cs" />
     <Compile Include="EndindText.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="Pill.cs" />
     <Compile Include="Program.cs" />
