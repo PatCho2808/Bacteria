@@ -32,8 +32,9 @@ namespace Bacteria
         {
             RenderWindow window = new RenderWindow(new VideoMode(x, y), "Bacteria", SFML.Window.Styles.Close);
             window.Closed += new EventHandler(OnClose);
+            
             Font = new Font(pathToFont);
-            Menu = new Menu(Font, new SFML.System.Vector2f(x,y)); 
+            Menu = new Menu(Font, window); 
 
             InitializeGame(window);
         }
@@ -44,7 +45,8 @@ namespace Bacteria
             {
                 window.DispatchEvents();
                 window.Clear(new Color(34, 37, 47));
-                window.Draw(Menu); 
+                window.Draw(Menu);
+                Menu.Update(); 
                 window.Display();
             }
 
