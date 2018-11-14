@@ -17,7 +17,7 @@ namespace Bacteria
         private Pill Pill { get; set; }
         private List<Bacteria> ListOfBacteria = new List<Bacteria>();
         private int initialNumberOfBacteria = 20;
-        private int currentNumberOfBactiera;
+        private int currentNumberOfBacteria;
         private Menu Menu; 
 
         private Timer Timer;
@@ -41,15 +41,7 @@ namespace Bacteria
 
         public void GameLoop(RenderWindow window)
         {
-            while(State == GameState.Menu)
-            {
-                window.DispatchEvents();
-                window.Clear(new Color(34, 37, 47));
-                window.Draw(Menu);
-                Menu.Update(); 
-                window.Display();
-            }
-
+            
             while (State == GameState.Running)
             {
                 window.DispatchEvents();
@@ -107,12 +99,12 @@ namespace Bacteria
 
         private void CheckIfPillCollectedBacteria()
         {
-            for (int i = 0; i < currentNumberOfBactiera; i++)
+            for (int i = 0; i < currentNumberOfBacteria; i++)
             {
               if(ListOfBacteria[i].GetBoundingBox().Intersects(Pill.GetBoundingBox()))
                 {
                     ListOfBacteria.RemoveAt(i);
-                    currentNumberOfBactiera--; 
+                    currentNumberOfBacteria--; 
                 }
             }
         }
@@ -126,7 +118,7 @@ namespace Bacteria
 
         private void CheckWinConditions()
         {
-            if (currentNumberOfBactiera <= 0)
+            if (currentNumberOfBacteria <= 0)
             {
                 State = GameState.Win;
                 EndingText.SetString(true); 
@@ -135,7 +127,7 @@ namespace Bacteria
 
         private void CheckLoseConditions()
         {
-            if(Timer.GetRemainingTime() <= 0 && currentNumberOfBactiera > 0)
+            if(Timer.GetRemainingTime() <= 0 && currentNumberOfBacteria > 0)
             {
                 State = GameState.Lose;
                 EndingText.SetString(false);
@@ -146,18 +138,18 @@ namespace Bacteria
         {
             Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
             CreateBacterias(window.Size.X, window.Size.Y);
-            currentNumberOfBactiera = initialNumberOfBacteria; 
+            currentNumberOfBacteria = initialNumberOfBacteria; 
             
             Timer = new Timer(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
             EndingText = new EndindText(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
-            State = GameState.Menu;
+            State = GameState.Running;
             GameLoop(window);
         }
         
         private void ClearAfterGame()
         {
             ListOfBacteria.Clear();
-            currentNumberOfBactiera = 0; 
+            currentNumberOfBacteria = 0; 
         }
     }
 }

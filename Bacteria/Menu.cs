@@ -15,7 +15,7 @@ namespace Bacteria
         private List<Text> ListOfMenuTexts = new List<Text>();
         private int checkedOption;
         private int maxOptions;
-
+        private bool menuOpened; 
         
 
         public Menu(Font newFont, RenderWindow window)
@@ -32,7 +32,8 @@ namespace Bacteria
             ListOfMenuTexts[checkedOption].Color = new Color(175, 14, 27);
 
             window.KeyReleased += OnKeyReleased;
-
+            menuOpened = true;
+            MenuLoop(window);
         }
 
         private void SetTexts(SFML.System.Vector2f WindowSize)
@@ -71,6 +72,36 @@ namespace Bacteria
             if (e.Code == Keyboard.Key.Down)
             {
                 MoveDown();
+            }
+
+            if (e.Code == Keyboard.Key.Return)
+            {
+                RenderWindow window = (RenderWindow)sender;
+                ExecuteCorrectButton(window);
+            }
+        }
+
+        public void MenuLoop(RenderWindow window)
+        {
+            while (menuOpened)
+            {
+                window.DispatchEvents();
+                window.Clear(new Color(34, 37, 47));
+                window.Draw(this);
+                window.Display();
+            }
+        }
+
+        public void ExecuteCorrectButton(RenderWindow window)
+        {
+            switch (ListOfMenuTexts[checkedOption].DisplayedString)
+            {
+                case "Play":
+                    menuOpened = false;
+                    break;
+                case "Exit":
+                    window.Close();
+                    break;
             }
         }
 
