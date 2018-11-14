@@ -32,11 +32,11 @@ namespace Bacteria
         {
             RenderWindow window = new RenderWindow(new VideoMode(x, y), "Bacteria", SFML.Window.Styles.Close);
             window.Closed += new EventHandler(OnClose);
-            
-            Font = new Font(pathToFont);
-            Menu = new Menu(Font, window); 
+            window.KeyReleased += OnKeyReleased;
 
-            InitializeGame(window);
+            Font = new Font(pathToFont);
+
+            OpenMenu(window); 
         }
 
         public void GameLoop(RenderWindow window)
@@ -71,6 +71,16 @@ namespace Bacteria
         {
             RenderWindow window = (RenderWindow)sender;
             window.Close();
+        }
+
+        public void OnKeyReleased(object sender, KeyEventArgs e)
+        {
+            if (State != GameState.Menu && e.Code == Keyboard.Key.Escape)
+            {
+                ClearAfterGame();
+                RenderWindow window = (RenderWindow)sender;
+                OpenMenu(window); 
+            }
         }
 
         private void Update(RenderWindow window)
@@ -139,7 +149,6 @@ namespace Bacteria
             Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
             CreateBacterias(window.Size.X, window.Size.Y);
             currentNumberOfBacteria = initialNumberOfBacteria; 
-            
             Timer = new Timer(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
             EndingText = new EndindText(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
             State = GameState.Running;
@@ -150,6 +159,14 @@ namespace Bacteria
         {
             ListOfBacteria.Clear();
             currentNumberOfBacteria = 0; 
+        }
+
+        private void OpenMenu(RenderWindow window)
+        {
+            State = GameState.Menu;
+            Menu = new Menu(Font, window);
+
+            InitializeGame(window);
         }
     }
 }

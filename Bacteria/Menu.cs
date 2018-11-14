@@ -33,6 +33,7 @@ namespace Bacteria
 
             window.KeyReleased += OnKeyReleased;
             menuOpened = true;
+
             MenuLoop(window);
         }
 
@@ -78,6 +79,12 @@ namespace Bacteria
             {
                 RenderWindow window = (RenderWindow)sender;
                 ExecuteCorrectButton(window);
+            }
+
+            if (e.Code == Keyboard.Key.Escape)
+            {
+                RenderWindow window = (RenderWindow)sender;
+                window.Close();
             }
         }
 
