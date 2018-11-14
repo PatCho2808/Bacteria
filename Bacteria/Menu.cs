@@ -65,27 +65,31 @@ namespace Bacteria
 
         public void OnKeyReleased(object sender, KeyEventArgs e)
         {
-            if (e.Code == Keyboard.Key.Up)
+            if(menuOpened)
             {
-                MoveUp(); 
-            }
+                if (e.Code == Keyboard.Key.Up)
+                {
+                    MoveUp();
+                }
 
-            if (e.Code == Keyboard.Key.Down)
-            {
-                MoveDown();
-            }
+                if (e.Code == Keyboard.Key.Down)
+                {
+                    MoveDown();
+                }
 
-            if (e.Code == Keyboard.Key.Return)
-            {
-                RenderWindow window = (RenderWindow)sender;
-                ExecuteCorrectButton(window);
-            }
+                if (e.Code == Keyboard.Key.Return)
+                {
+                    RenderWindow window = (RenderWindow)sender;
+                    ExecuteCorrectButton(window);
+                }
 
-            if (e.Code == Keyboard.Key.Escape)
-            {
-                RenderWindow window = (RenderWindow)sender;
-                window.Close();
+                if (e.Code == Keyboard.Key.Escape)
+                {
+                    RenderWindow window = (RenderWindow)sender;
+                    window.Close();
+                }
             }
+           
         }
 
         public void MenuLoop(RenderWindow window)
