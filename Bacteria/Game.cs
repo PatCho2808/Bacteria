@@ -13,6 +13,9 @@ namespace Bacteria
         private string pathToPillTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Pill.png";
         private string pathToBacteriaTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Bacteria.png";
         private string pathToFont = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\PressStart2P-Regular.ttf";
+        private string pathToBackground = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\BackgroundGame.png";
+        private Sprite BackgroundSprite;
+        private Texture BackgroundTexture; 
         private Font Font; 
         private Pill Pill { get; set; }
         private List<Bacteria> ListOfBacteria = new List<Bacteria>();
@@ -36,6 +39,8 @@ namespace Bacteria
 
             Font = new Font(pathToFont);
 
+            SetBackground(); 
+
             OpenMenu(window); 
         }
 
@@ -45,7 +50,7 @@ namespace Bacteria
             while (State == GameState.Running)
             {
                 window.DispatchEvents();
-                window.Clear(new Color(34, 37, 47));
+                window.Clear();
                 Update(window);
                 window.Display(); 
             }
@@ -55,7 +60,8 @@ namespace Bacteria
             while (State == GameState.Win || State == GameState.Lose)
             {
                 window.DispatchEvents();
-                window.Clear(new Color(34, 37, 47));
+                window.Clear();
+                window.Draw(BackgroundSprite); 
 
                 if(Keyboard.IsKeyPressed(Keyboard.Key.Return))
                 {
@@ -94,6 +100,7 @@ namespace Bacteria
 
         private void Draw(RenderWindow window)
         {
+            window.Draw(BackgroundSprite); 
             Pill.Draw(window, RenderStates.Default);
             ListOfBacteria.ForEach(el=>el.Draw(window, RenderStates.Default));
             Timer.Draw(window, RenderStates.Default);
@@ -167,6 +174,13 @@ namespace Bacteria
             Menu = new Menu(Font, window);
 
             InitializeGame(window);
+        }
+
+        private void SetBackground()
+        {
+            BackgroundTexture = new Texture(pathToBackground);
+            BackgroundSprite = new Sprite(BackgroundTexture);
+            BackgroundSprite.Color = new Color(255, 255, 255, 128);
         }
     }
 }

@@ -15,8 +15,13 @@ namespace Bacteria
         private List<Text> ListOfMenuTexts = new List<Text>();
         private int checkedOption;
         private int maxOptions;
-        private bool menuOpened; 
-        
+        private bool menuOpened;
+
+        private Sprite Sprite;
+        private Texture Texture;
+        private string PathToBackgroundTileTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\BackgroundMenu.png";
+
+
 
         public Menu(Font newFont, RenderWindow window)
         {
@@ -33,6 +38,8 @@ namespace Bacteria
 
             window.KeyReleased += OnKeyReleased;
             menuOpened = true;
+
+            SetBackground((int)window.Size.X, (int)window.Size.Y);
 
             MenuLoop(window);
         }
@@ -57,6 +64,7 @@ namespace Bacteria
 
         public void MoveDown()
         {
+            
             ListOfMenuTexts[checkedOption].Color = new Color(255, 255, 255);
             checkedOption++;
             if (checkedOption > ListOfMenuTexts.Count() - 1) checkedOption = 0;
@@ -103,7 +111,7 @@ namespace Bacteria
             }
         }
 
-        public void ExecuteCorrectButton(RenderWindow window)
+        private void ExecuteCorrectButton(RenderWindow window)
         {
             switch (ListOfMenuTexts[checkedOption].DisplayedString)
             {
@@ -118,7 +126,17 @@ namespace Bacteria
 
         public void Draw(RenderTarget target, RenderStates states)
         {
+            Sprite.Draw(target, states);
             ListOfMenuTexts.ForEach(el => el.Draw(target, states));
+            
+        }
+
+        private void SetBackground(int x, int y)
+        {
+            Texture = new Texture(PathToBackgroundTileTexture);
+            Texture.Repeated = true;
+            Sprite = new Sprite(Texture, new IntRect(new SFML.System.Vector2i(0, 0), new SFML.System.Vector2i(x/ 4, y/ 4)));
+            Sprite.Scale = new SFML.System.Vector2f(4, 4);
         }
     }
 }
