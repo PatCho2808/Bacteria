@@ -100,7 +100,9 @@
   <ItemGroup>
     <Compile Include="Bacteria.cs" />
     <Compile Include="EndindText.cs" />
+    <Compile Include="FirstLevel.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="LevelBase.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="Pill.cs" />
