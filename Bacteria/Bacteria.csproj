@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5D503687-1416-4DA4-89E7-520B9E5B2AAC}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>Bacteria</RootNamespace>
     <AssemblyName>Bacteria</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -108,6 +108,7 @@
     <Compile Include="Pill.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecondLevel.cs" />
     <Compile Include="TextObject.cs" />
     <Compile Include="Timer.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -40,7 +40,7 @@ namespace Bacteria
             menuOpened = true;
 
             SetBackground((int)window.Size.X, (int)window.Size.Y);
-
+            Console.WriteLine("Menu constructor");
             MenuLoop(window);
         }
 
@@ -88,6 +88,7 @@ namespace Bacteria
                 if (e.Code == Keyboard.Key.Return)
                 {
                     RenderWindow window = (RenderWindow)sender;
+                    Console.WriteLine("Execute correct button"); 
                     ExecuteCorrectButton(window);
                 }
 

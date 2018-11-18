@@ -47,7 +47,7 @@ namespace Bacteria
             Font = new Font(pathToFont);
 
             SetBackground();
-             
+            SetLevels();
 
             OpenMenu(window); 
         }
@@ -63,18 +63,13 @@ namespace Bacteria
                 window.Display(); 
             }
 
-            ClearAfterGame();
+            ClearAfterLevel();
 
             while (State == GameState.Win || State == GameState.Lose)
             {
                 window.DispatchEvents();
                 window.Clear();
                 window.Draw(BackgroundSprite); 
-
-                if(Keyboard.IsKeyPressed(Keyboard.Key.Return))
-                {
-                    InitializeGame(window); 
-                }
 
                 EndingText.Draw(window, RenderStates.Default);
                 window.Display();
@@ -91,9 +86,23 @@ namespace Bacteria
         {
             if (State != GameState.Menu && e.Code == Keyboard.Key.Escape)
             {
-                ClearAfterGame();
+                ClearAfterLevel();
                 RenderWindow window = (RenderWindow)sender;
                 OpenMenu(window); 
+            }
+
+            if ((State == GameState.Win || State == GameState.Lose) && e.Code == Keyboard.Key.Return)
+            {
+                RenderWindow window = (RenderWindow)sender;
+
+                if (currentLevel >= ListOfLevels.Count)
+                {
+                    ClearAfterGame();
+                    OpenMenu(window);
+                    
+                }
+
+                else InitializeGame(window);
             }
         }
 
@@ -145,8 +154,7 @@ namespace Bacteria
         {
             if (currentNumberOfBacteria <= 0)
             {
-                State = GameState.Win;
-                EndingText.SetString(true); 
+                OnWin();
             }
         }
 
@@ -161,7 +169,6 @@ namespace Bacteria
 
         private void InitializeGame(RenderWindow window)
         {
-            SetLevels();
             Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
             SetCurrentLevel();
             Timer = new Timer(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y), currentLevelDuration);
@@ -172,15 +179,22 @@ namespace Bacteria
             GameLoop(window);
         }
         
-        private void ClearAfterGame()
+        private void ClearAfterLevel()
         {
             ListOfBacteria.Clear();
-            currentNumberOfBacteria = 0; 
+            currentNumberOfBacteria = 0;
+        }
+
+        private void ClearAfterGame()
+        {
+            ClearAfterLevel();
+            ResetLevels();            
         }
 
         private void OpenMenu(RenderWindow window)
         {
             State = GameState.Menu;
+            Menu = null;
             Menu = new Menu(Font, window);
 
             InitializeGame(window);
@@ -195,14 +209,33 @@ namespace Bacteria
 
         private void SetLevels()
         {
-            currentLevel = firstLevel; 
-            ListOfLevels.Add(new FirstLevel()); 
+            ResetLevels(); 
+            ListOfLevels.Add(new FirstLevel());
+            ListOfLevels.Add(new SecondLevel());
+        }
+
+        private void ResetLevels()
+        {
+            currentLevel = firstLevel;
         }
 
         private void SetCurrentLevel()
         {
+            Console.WriteLine(currentLevel); 
             initialNumberOfBacteria = ListOfLevels[currentLevel].GetInitialNumberOfBacteria();
             currentLevelDuration = ListOfLevels[currentLevel].GetInitialTime(); 
+        }
+
+        private void OnWin()
+        {
+            State = GameState.Win;
+            EndingText.SetString(true);
+            currentLevel++;
+        }
+
+        private void OnLose()
+        {
+
         }
     }
 }

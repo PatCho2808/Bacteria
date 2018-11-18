@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Bacteria
 {
-    class FirstLevel : LevelBase
+    class SecondLevel : LevelBase
     {
-        public FirstLevel()
+        public SecondLevel()
         {
-            LevelData.initialNumberOfBacteria = 13;
+            LevelData.initialNumberOfBacteria = 17;
             LevelData.initialTime = 10; 
         }
 
-        override public void Update()
+        public override void Update()
         {
-
+            throw new NotImplementedException();
         }
     }
 }
