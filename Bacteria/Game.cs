@@ -162,8 +162,7 @@ namespace Bacteria
         {
             if(Timer.GetRemainingTime() <= 0 && currentNumberOfBacteria > 0)
             {
-                State = GameState.Lose;
-                EndingText.SetString(false);
+               OnLose(); 
             }
         }
 
@@ -212,6 +211,7 @@ namespace Bacteria
             ResetLevels(); 
             ListOfLevels.Add(new FirstLevel());
             ListOfLevels.Add(new SecondLevel());
+            ListOfLevels.Add(new ThirdLevel());
         }
 
         private void ResetLevels()
@@ -235,7 +235,8 @@ namespace Bacteria
 
         private void OnLose()
         {
-
+            State = GameState.Lose;
+            EndingText.SetString(false);
         }
     }
 }
