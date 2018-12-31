@@ -24,7 +24,7 @@ namespace Bacteria
         {
             if(Text.DisplayedString != "0")
             {
-                Text.DisplayedString = (levelDuration - (int)Clock.ElapsedTime.AsSeconds()).ToString();
+                Text.DisplayedString = String.Format("{0:0}",GetRemainingTime());
                 Text.Position = new Vector2f(windowWidth - Text.GetGlobalBounds().Width * 2, Text.GetGlobalBounds().Height);
             }            
         }

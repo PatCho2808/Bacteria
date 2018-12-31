@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Graphics;
+
 
 namespace Bacteria
 {
-    abstract class LevelBase
+    abstract class LevelBase : Drawable
     {
         protected struct Data
         {
@@ -17,6 +19,8 @@ namespace Bacteria
         protected Data LevelData;
 
         abstract public void Update();
+        abstract public void SetLevel();
+        abstract public void Draw(RenderTarget target, RenderStates states);
 
         public int GetInitialNumberOfBacteria()
         {
@@ -28,6 +32,8 @@ namespace Bacteria
             return LevelData.initialTime;
         }
 
-        abstract public void SetLevel();
+
+
+        
     }
 }

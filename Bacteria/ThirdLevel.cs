@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Graphics;
+using SFML.System;
+
 
 namespace Bacteria
 {
@@ -14,13 +17,19 @@ namespace Bacteria
             LevelData.initialTime = 7;
         }
 
+
         public override void Update()
         {
         }
 
         public override void SetLevel()
         {
-           
+
+        }
+
+        public override void Draw(RenderTarget target, RenderStates states)
+        {
+
         }
     }
 }

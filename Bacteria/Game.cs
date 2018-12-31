@@ -10,32 +10,32 @@ namespace Bacteria
 {
     class Game
     {
-        private string pathToPillTexture = "G:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Pill.png";
+        private static string pathToPillTexture = "G:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Pill.png";
         private static string pathToBacteriaTexture = "G:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Bacteria.png";
-        private string pathToFont = "G:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\PressStart2P-Regular.ttf";
-        private string pathToBackground = "G:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\BackgroundGame.png";
-        private Sprite BackgroundSprite;
-        private Texture BackgroundTexture; 
-        private Font Font; 
-        private Pill Pill { get; set; }
+        private static string pathToFont = "G:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\PressStart2P-Regular.ttf";
+        private static string pathToBackground = "G:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\BackgroundGame.png";
+        private static Sprite BackgroundSprite;
+        private static Texture BackgroundTexture; 
+        private static Font Font; 
+        private static Pill Pill { get; set; }
         private static List<Bacteria> ListOfBacteria = new List<Bacteria>();
-        private int initialNumberOfBacteria;
+        private static int initialNumberOfBacteria;
         private static int currentNumberOfBacteria;
-        private Menu Menu; 
+        private static Menu Menu; 
         
 
-        private LevelTimer Timer;
+        private static LevelTimer levelTimer;
         enum GameState
         {
             Menu, Running, Win, Lose
         }
-        private GameState State;
-        private EndindText EndingText;
+        private static GameState State;
+        private static EndindText EndingText;
 
-        private List<LevelBase> ListOfLevels = new List<LevelBase>();
-        private int currentLevel;
-        private int firstLevel = 0;
-        private int currentLevelDuration;
+        private static List<LevelBase> ListOfLevels = new List<LevelBase>();
+        private static int currentLevel;
+        private static int firstLevel = 0;
+        private static int currentLevelDuration;
         private static SFML.System.Vector2f WindowSize; 
         
 
@@ -114,7 +114,7 @@ namespace Bacteria
             Pill.Update();
             Draw(window);
             CheckIfPillCollectedBacteria();
-            Timer.Update();
+            levelTimer.Update();
             UpdateState();
             
         }
@@ -124,7 +124,8 @@ namespace Bacteria
             window.Draw(BackgroundSprite); 
             Pill.Draw(window, RenderStates.Default);
             ListOfBacteria.ForEach(el=>el.Draw(window, RenderStates.Default));
-            Timer.Draw(window, RenderStates.Default);
+            levelTimer.Draw(window, RenderStates.Default);
+            ListOfLevels[currentLevel].Draw(window, RenderStates.Default);
         }
 
         private void CreateBacterias(uint maxX, uint maxY)
@@ -164,7 +165,7 @@ namespace Bacteria
 
         private void CheckLoseConditions()
         {
-            if(Timer.GetRemainingTime() <= 0 && currentNumberOfBacteria > 0)
+            if(levelTimer.GetRemainingTime() <= 0 && currentNumberOfBacteria > 0)
             {
                OnLose(); 
             }
@@ -174,7 +175,7 @@ namespace Bacteria
         {
             Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
             SetCurrentLevel();
-            Timer = new LevelTimer(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y), currentLevelDuration);
+            levelTimer = new LevelTimer(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y), currentLevelDuration);
             CreateBacterias(window.Size.X, window.Size.Y);
             currentNumberOfBacteria = initialNumberOfBacteria;
             EndingText = new EndindText(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
@@ -245,8 +246,11 @@ namespace Bacteria
 
         public static void CreateNewBacteria()
         {
-            ListOfBacteria.Add(new Bacteria(pathToBacteriaTexture,(int)WindowSize.X, (int)WindowSize.Y));
-            currentNumberOfBacteria++;
+            if(levelTimer.GetRemainingTime() >=3)
+            {
+                ListOfBacteria.Add(new Bacteria(pathToBacteriaTexture, (int)WindowSize.X, (int)WindowSize.Y));
+                currentNumberOfBacteria++;
+            }
         }
     }
 }

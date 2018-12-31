@@ -22,11 +22,12 @@ namespace Bacteria
             timeBetweenNewBacteria = 3;
             this.font = newFont;
             this.WindowSize = WindowSize;
-            
         }
 
         public override void Update()
         {
+            newBacteriaTimer.Update();
+
             if(newBacteriaTimer.GetRemainingTime() <= 0)
             {
                 Game.CreateNewBacteria();
@@ -37,6 +38,11 @@ namespace Bacteria
         public override void SetLevel()
         {
             newBacteriaTimer = new NewBactieriaTimer(font, WindowSize, timeBetweenNewBacteria);
+        }
+
+        public override void Draw(RenderTarget target, RenderStates states)
+        {
+            target.Draw(newBacteriaTimer, states);
         }
     }
 }
