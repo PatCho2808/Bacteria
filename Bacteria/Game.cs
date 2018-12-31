@@ -24,7 +24,7 @@ namespace Bacteria
         private Menu Menu; 
         
 
-        private Timer Timer;
+        private LevelTimer Timer;
         enum GameState
         {
             Menu, Running, Win, Lose
@@ -170,7 +170,7 @@ namespace Bacteria
         {
             Pill = new Pill(pathToPillTexture, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
             SetCurrentLevel();
-            Timer = new Timer(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y), currentLevelDuration);
+            Timer = new LevelTimer(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y), currentLevelDuration);
             CreateBacterias(window.Size.X, window.Size.Y);
             currentNumberOfBacteria = initialNumberOfBacteria;
             EndingText = new EndindText(Font, new SFML.System.Vector2f(window.Size.X, window.Size.Y));
