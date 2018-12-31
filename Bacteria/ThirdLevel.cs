@@ -14,7 +14,7 @@ namespace Bacteria
         SecondLevel secondLevel; 
         string pathToWaterSprite = "G:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Water.png";
         Water water;
-        int timeToNextSpawnWater;
+        float timeToNextSpawnWater;
         int minTimeToNextSpawnWater = 1;
         int maxTimeToNextSpawnWater = 5;
         static Random Rand = new Random();
@@ -28,8 +28,8 @@ namespace Bacteria
 
         public ThirdLevel(Font newFont, SFML.System.Vector2f WindowSize)
         {
-            LevelData.initialNumberOfBacteria = 17;
-            LevelData.initialTime = 8;
+            LevelData.initialNumberOfBacteria = 15;
+            LevelData.initialTime = 9;
             secondLevel = new SecondLevel(newFont, WindowSize);
             this.WindowSize = WindowSize;
            
@@ -66,7 +66,7 @@ namespace Bacteria
         {
             secondLevel.SetLevel();
             newWaterClock.Restart();
-            timeToNextSpawnWater = 1;
+            timeToNextSpawnWater = 0.5f;
         }
 
         public override void Draw(RenderTarget target, RenderStates states)
