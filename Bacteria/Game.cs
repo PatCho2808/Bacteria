@@ -10,17 +10,17 @@ namespace Bacteria
 {
     class Game
     {
-        private string pathToPillTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Pill.png";
-        private string pathToBacteriaTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Bacteria.png";
-        private string pathToFont = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\PressStart2P-Regular.ttf";
-        private string pathToBackground = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\BackgroundGame.png";
+        private string pathToPillTexture = "G:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Pill.png";
+        private static string pathToBacteriaTexture = "G:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\Bacteria.png";
+        private string pathToFont = "G:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\PressStart2P-Regular.ttf";
+        private string pathToBackground = "G:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\BackgroundGame.png";
         private Sprite BackgroundSprite;
         private Texture BackgroundTexture; 
         private Font Font; 
         private Pill Pill { get; set; }
-        private List<Bacteria> ListOfBacteria = new List<Bacteria>();
+        private static List<Bacteria> ListOfBacteria = new List<Bacteria>();
         private int initialNumberOfBacteria;
-        private int currentNumberOfBacteria;
+        private static int currentNumberOfBacteria;
         private Menu Menu; 
         
 
@@ -35,11 +35,13 @@ namespace Bacteria
         private List<LevelBase> ListOfLevels = new List<LevelBase>();
         private int currentLevel;
         private int firstLevel = 0;
-        private int currentLevelDuration; 
+        private int currentLevelDuration;
+        private static SFML.System.Vector2f WindowSize; 
         
 
         public Game(uint x, uint y)
         {
+            WindowSize = new SFML.System.Vector2f(x, y);
             RenderWindow window = new RenderWindow(new VideoMode(x, y), "Bacteria", SFML.Window.Styles.Close);
             window.Closed += new EventHandler(OnClose);
             window.KeyReleased += OnKeyReleased;
@@ -108,11 +110,13 @@ namespace Bacteria
 
         private void Update(RenderWindow window)
         {
+            ListOfLevels[currentLevel].Update();
             Pill.Update();
             Draw(window);
             CheckIfPillCollectedBacteria();
             Timer.Update();
-            UpdateState(); 
+            UpdateState();
+            
         }
 
         private void Draw(RenderWindow window)
@@ -210,7 +214,7 @@ namespace Bacteria
         {
             ResetLevels(); 
             ListOfLevels.Add(new FirstLevel());
-            ListOfLevels.Add(new SecondLevel());
+            ListOfLevels.Add(new SecondLevel(Font,WindowSize));
             ListOfLevels.Add(new ThirdLevel());
         }
 
@@ -221,9 +225,9 @@ namespace Bacteria
 
         private void SetCurrentLevel()
         {
-            Console.WriteLine(currentLevel); 
             initialNumberOfBacteria = ListOfLevels[currentLevel].GetInitialNumberOfBacteria();
-            currentLevelDuration = ListOfLevels[currentLevel].GetInitialTime(); 
+            currentLevelDuration = ListOfLevels[currentLevel].GetInitialTime();
+            ListOfLevels[currentLevel].SetLevel();
         }
 
         private void OnWin()
@@ -237,6 +241,12 @@ namespace Bacteria
         {
             State = GameState.Lose;
             EndingText.SetString(false);
+        }
+
+        public static void CreateNewBacteria()
+        {
+            ListOfBacteria.Add(new Bacteria(pathToBacteriaTexture,(int)WindowSize.X, (int)WindowSize.Y));
+            currentNumberOfBacteria++;
         }
     }
 }

@@ -27,5 +27,7 @@ namespace Bacteria
         {
             return LevelData.initialTime;
         }
+
+        abstract public void SetLevel();
     }
 }

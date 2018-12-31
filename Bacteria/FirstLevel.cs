@@ -18,5 +18,10 @@ namespace Bacteria
         {
 
         }
+
+        public override void SetLevel()
+        {
+           
+        }
     }
 }

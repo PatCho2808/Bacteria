@@ -19,7 +19,7 @@ namespace Bacteria
 
         private Sprite Sprite;
         private Texture Texture;
-        private string PathToBackgroundTileTexture = "F:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\BackgroundMenu.png";
+        private string PathToBackgroundTileTexture = "G:\\Documents\\VisualStudioProjects\\Bacteria\\Content\\BackgroundMenu.png";
 
 
 
