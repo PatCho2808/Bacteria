@@ -216,7 +216,7 @@ namespace Bacteria
             ResetLevels(); 
             ListOfLevels.Add(new FirstLevel());
             ListOfLevels.Add(new SecondLevel(Font,WindowSize));
-            ListOfLevels.Add(new ThirdLevel());
+            ListOfLevels.Add(new ThirdLevel(Font, WindowSize));
         }
 
         private void ResetLevels()

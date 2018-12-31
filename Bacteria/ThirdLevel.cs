@@ -11,25 +11,29 @@ namespace Bacteria
 {
     class ThirdLevel : LevelBase
     {
-        public ThirdLevel()
+        SecondLevel secondLevel;
+
+        public ThirdLevel(Font newFont, SFML.System.Vector2f WindowSize)
         {
             LevelData.initialNumberOfBacteria = 25;
             LevelData.initialTime = 7;
+            secondLevel = new SecondLevel(newFont, WindowSize); 
         }
 
 
         public override void Update()
         {
+            secondLevel.Update();
         }
 
         public override void SetLevel()
         {
-
+            secondLevel.SetLevel();
         }
 
         public override void Draw(RenderTarget target, RenderStates states)
         {
-
+            target.Draw(secondLevel, states);
         }
     }
 }
