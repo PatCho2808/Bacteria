@@ -34,7 +34,7 @@ namespace Bacteria
 
         private static List<LevelBase> ListOfLevels = new List<LevelBase>();
         private static int currentLevel;
-        private static int firstLevel = 0;
+        private static int firstLevel = 2;
         private static int currentLevelDuration;
         private static SFML.System.Vector2f WindowSize; 
         
@@ -251,6 +251,21 @@ namespace Bacteria
                 ListOfBacteria.Add(new Bacteria(pathToBacteriaTexture, (int)WindowSize.X, (int)WindowSize.Y));
                 currentNumberOfBacteria++;
             }
+        }
+
+        public static FloatRect GetPillBoundingBox()
+        {
+            return Pill.GetBoundingBox();
+        }
+
+        public static void SpeedUpPill(float x)
+        {
+            Pill.AddSpeed(x); 
+        }
+
+        public static void ResetPillSpeed()
+        {
+            Pill.ResetSpeed();
         }
     }
 }

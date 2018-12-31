@@ -10,13 +10,15 @@ namespace Bacteria
     class Pill : Object
     {
 
-        private float speed = 0.1f;
+        private float speed;
+        private float initialSpeed = 0.1f;
         private SFML.System.Vector2f WindowSize; 
 
         public Pill(string path, SFML.System.Vector2f WindowSize) : base(path)
         {
             Sprite.Position = new SFML.System.Vector2f(WindowSize.X/2, WindowSize.Y/2);
             Sprite.Rotation = 90;
+            speed = initialSpeed;
 
             this.WindowSize = WindowSize; 
         }
@@ -69,6 +71,16 @@ namespace Bacteria
             {
                 MoveLeft();
             }
+        }
+
+        public void AddSpeed(float x)
+        {
+            speed += x;
+        }
+
+        public void ResetSpeed()
+        {
+            speed = initialSpeed;
         }
 
     }
